@@ -48,6 +48,28 @@ function buildToc() {
   });
 }
 
+function loadArticles() {
+  fetch('articles/index.json')
+    .then(r => r.json())
+    .then(ids => Promise.all(ids.map(id =>
+      fetch(`articles/${id}.md`).then(r => r.text()).then(text => {
+        const { meta, content } = parseFrontMatter(text);
+        return {
+          id,
+          title: meta.title || '',
+          date: meta.date || '',
+          category: meta.category || '',
+          summary: content.replace(/\n/g, '').slice(0, 120)
+        };
+      })
+    )))
+    .then(list => {
+      articles = list;
+      loadList();
+      router();
+    });
+}
+
 function showArticle(id) {
   const meta = articles.find(a => a.id === id);
   fetch(`articles/${id}.md`)
@@ -92,5 +114,4 @@ backBtn.addEventListener('click', () => {
   location.hash = '';
 });
 
-loadList();
-router();
+loadArticles();
