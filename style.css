@@ -99,6 +99,7 @@ header {
 #article-container {
   display: flex;
 }
+
 #toc {
   width: 200px;
   margin-right: 1rem;
