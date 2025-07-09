@@ -1,14 +1,17 @@
 const articles = [
-  { id: "001", date: "2023-01-01", author: "學生輔導中心", category: "自我覺察" }
+  {
+    id: '001',
+    date: '2023-01-01',
+    author: '學生輔導中心',
+    category: '自我覺察',
+  },
   // TODO: 加入更多文章設定
 ];
-
 const listEl = document.getElementById('article-list');
 const viewEl = document.getElementById('article-view');
 const contentEl = document.getElementById('content');
 const tocEl = document.getElementById('toc');
 const backBtn = document.getElementById('back-home');
-
 const breadcrumbEl = document.getElementById('breadcrumb');
 const langBtn = document.getElementById('lang-switch');
 
@@ -57,7 +60,6 @@ function showArticle(id) {
       const lines = md.split(/\n/);
       const title = lines[0].trim();
       breadcrumbEl.textContent = `主題專文 / ${meta.category} / ${meta.date}`;
-
       contentEl.innerHTML = marked.parse(md);
       buildToc();
       listEl.style.display = 'none';
