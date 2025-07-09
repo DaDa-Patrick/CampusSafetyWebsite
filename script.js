@@ -11,7 +11,6 @@ function parseFrontMatter(text) {
   return { meta, content: match[2] };
 }
 
-
 const listEl = document.getElementById('article-list');
 const viewEl = document.getElementById('article-view');
 const contentEl = document.getElementById('content');
