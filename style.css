@@ -13,24 +13,87 @@ a:hover {
   text-decoration: underline;
 }
 
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: -999px;
+}
+.skip-link:focus {
+  left: 10px;
+  top: 10px;
+  background: #2c6fbb;
+  color: #fff;
+  padding: 0.5rem;
+  z-index: 1000;
+}
+
+header {
+  background: #2c6fbb;
+  color: #fff;
+}
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
+}
+.menu {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0;
+  padding: 0 1rem 0.5rem;
+}
+.menu li a {
+  display: block;
+  padding: 0.5rem 1rem;
+  color: #fff;
+}
+.menu li a:hover {
+  background: #174e91;
+}
+#lang-switch {
+  background: none;
+  border: 1px solid #fff;
+  color: #fff;
+  padding: 0.25rem 0.5rem;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
 .view {
   padding: 1rem;
 }
 
-#article-list .article-item {
-  border-bottom: 1px solid #ddd;
-  padding: 1rem 0;
+#article-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
 }
-
-#article-list .article-item h2 {
-  margin: 0 0 0.5rem;
-  font-size: 1.25rem;
+.article-card {
+  background: #fff;
+  border: 1px solid #ddd;
+  transition: transform 0.2s;
 }
-
-#article-list .date {
+.article-card:hover {
+  transform: translateY(-3px);
+}
+.article-card .cover {
+  width: 100%;
+  padding-top: 56.25%;
+  background: #ccc center/cover no-repeat;
+}
+.article-card h2 {
+  font-size: 1.2rem;
+  margin: 0.5rem;
+}
+.article-card .date {
   font-size: 0.875rem;
+  margin: 0 0.5rem 0.5rem;
   color: #666;
-  margin-bottom: 0.5rem;
+}
+.article-card p {
+  margin: 0 0.5rem 1rem;
 }
 
 #article-container {
@@ -41,15 +104,12 @@ a:hover {
   width: 200px;
   margin-right: 1rem;
 }
-
 #toc h3 {
   margin-top: 0;
 }
-
 #content {
   flex: 1;
 }
-
 #back-home {
   position: fixed;
   bottom: 20px;
@@ -61,16 +121,28 @@ a:hover {
   border-radius: 4px;
   cursor: pointer;
 }
+.breadcrumb {
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+}
+footer {
+  background: #2c6fbb;
+  color: #fff;
+  text-align: center;
+  padding: 1rem;
+}
 
 @media (max-width: 768px) {
   #article-container {
     flex-direction: column;
   }
-
   #toc {
     width: 100%;
     margin-right: 0;
     margin-bottom: 1rem;
+  }
+  #article-list {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -81,4 +153,3 @@ h2, h3, h4, h5, h6 {
 button:focus {
   outline: none;
 }
-
