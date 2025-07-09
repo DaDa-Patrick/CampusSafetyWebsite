@@ -1,0 +1,84 @@
+body {
+  font-family: 'Noto Sans TC', 'PingFang TC', 'Helvetica Neue', sans-serif;
+  margin: 0;
+  background: #f0f7ff;
+}
+
+a {
+  color: #2c6fbb;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.view {
+  padding: 1rem;
+}
+
+#article-list .article-item {
+  border-bottom: 1px solid #ddd;
+  padding: 1rem 0;
+}
+
+#article-list .article-item h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.25rem;
+}
+
+#article-list .date {
+  font-size: 0.875rem;
+  color: #666;
+  margin-bottom: 0.5rem;
+}
+
+#article-container {
+  display: flex;
+}
+
+#toc {
+  width: 200px;
+  margin-right: 1rem;
+}
+
+#toc h3 {
+  margin-top: 0;
+}
+
+#content {
+  flex: 1;
+}
+
+#back-home {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #2c6fbb;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  #article-container {
+    flex-direction: column;
+  }
+
+  #toc {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 1rem;
+  }
+}
+
+h2, h3, h4, h5, h6 {
+  color: #2c6fbb;
+}
+
+button:focus {
+  outline: none;
+}
+
