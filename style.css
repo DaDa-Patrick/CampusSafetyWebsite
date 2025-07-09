@@ -1,6 +1,6 @@
 :root {
-  --ntnu-blue: #001f6a;
-  --ntnu-red: #7a0714;
+  --primary: #7a0714;
+  --secondary: #001f6a;
   --bg-light: #f0f7ff;
 }
 
@@ -13,7 +13,7 @@ body {
 }
 
 a {
-  color: var(--ntnu-blue);
+  color: var(--secondary);
   text-decoration: none;
 }
 
@@ -29,27 +29,16 @@ a:hover {
 .skip-link:focus {
   left: 10px;
   top: 10px;
-  background: var(--ntnu-blue);
+  background: var(--secondary);
   color: #fff;
   padding: 0.5rem;
   z-index: 1000;
 }
 
 header {
-  background: var(--ntnu-blue);
+  background: var(--primary);
   color: #fff;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.hero {
-  background: linear-gradient(135deg, var(--ntnu-blue), var(--ntnu-red));
-  color: #fff;
-  padding: 3rem 1rem;
-  text-align: center;
-}
-.hero h1 {
-  margin: 0;
-  font-size: 2rem;
 }
 .top-bar {
   display: flex;
@@ -70,7 +59,7 @@ header {
   color: #fff;
 }
 .menu li a:hover {
-  background: var(--ntnu-red);
+  background: var(--secondary);
 }
 #lang-switch {
   background: none;
@@ -81,8 +70,9 @@ header {
   border-radius: 3px;
 }
 #lang-switch:hover {
-  background: var(--ntnu-red);
+  background: var(--secondary);
 }
+
 .view {
   padding: 1rem;
 }
@@ -113,7 +103,7 @@ header {
 .article-card h2 {
   font-size: 1.25rem;
   margin: 0.5rem;
-  color: var(--ntnu-blue);
+  color: var(--primary);
 }
 .article-card .date {
   font-size: 0.875rem;
@@ -144,7 +134,7 @@ header {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background: var(--ntnu-red);
+  background: var(--primary);
   color: #fff;
   border: none;
   padding: 0.5rem 1rem;
@@ -156,7 +146,7 @@ header {
   margin-bottom: 0.5rem;
 }
 footer {
-  background: var(--ntnu-blue);
+  background: var(--primary);
   color: #fff;
   text-align: center;
   padding: 1rem;
@@ -166,9 +156,7 @@ footer {
   #article-container {
     flex-direction: column;
   }
-  .hero h1 {
-    font-size: 1.5rem;
-  }
+
   #toc {
     width: 100%;
     margin-right: 0;
@@ -180,7 +168,7 @@ footer {
 }
 
 h2, h3, h4, h5, h6 {
-  color: var(--ntnu-blue);
+  color: var(--primary);
 }
 
 button:focus {
