@@ -1,7 +1,15 @@
-const articles = [
-  { id: "001", date: "2023-01-01", author: "學生輔導中心", category: "自我覺察" }
-  // TODO: 加入更多文章設定
-];
+let articles = [];
+
+function parseFrontMatter(text) {
+  const match = text.match(/^---\n([\s\S]+?)\n---\n([\s\S]*)/);
+  if (!match) return { meta: {}, content: text };
+  const meta = {};
+  match[1].split(/\n/).forEach(line => {
+    const [key, ...rest] = line.split(':');
+    meta[key.trim()] = rest.join(':').trim();
+  });
+  return { meta, content: match[2] };
+}
 
 const listEl = document.getElementById('article-list');
 const viewEl = document.getElementById('article-view');
@@ -14,21 +22,14 @@ const langBtn = document.getElementById('lang-switch');
 function loadList() {
   listEl.innerHTML = '';
   articles.forEach(meta => {
-      fetch(`articles/${meta.id}.md`)
-        .then(r => r.text())
-        .then(text => {
-          const lines = text.split(/\n/);
-          const title = lines[0].trim();
-          const summary = text.replace(/\n/g, '').slice(0, 120);
-          const card = document.createElement('div');
-          card.className = 'article-card';
-          card.innerHTML =
-            `<div class="cover"></div>` +
-            `<h2><a href="#/article/${meta.id}">${title}</a></h2>` +
-            `<div class="date">${meta.date}</div>` +
-            `<p>${summary}...</p>`;
-          listEl.appendChild(card);
-        });
+    const card = document.createElement('div');
+    card.className = 'article-card';
+    card.innerHTML =
+      `<div class="cover"></div>` +
+      `<h2><a href="#/article/${meta.id}">${meta.title}</a></h2>` +
+      `<div class="date">${meta.date}</div>` +
+      `<p>${meta.summary}...</p>`;
+    listEl.appendChild(card);
   });
 }
 
@@ -71,18 +72,16 @@ function loadArticles() {
 }
 
 function showArticle(id) {
-  const meta = articles.find(a => a.id === id);
   fetch(`articles/${id}.md`)
     .then(r => r.text())
     .then(md => {
-      const lines = md.split(/\n/);
-      const title = lines[0].trim();
+      const { meta, content } = parseFrontMatter(md);
       breadcrumbEl.textContent = `主題專文 / ${meta.category} / ${meta.date}`;
-      contentEl.innerHTML = marked.parse(md);
+      contentEl.innerHTML = marked.parse(content);
       buildToc();
       listEl.style.display = 'none';
       viewEl.style.display = 'block';
-      document.title = title;
+      document.title = meta.title || '文章';
     });
 }
 
