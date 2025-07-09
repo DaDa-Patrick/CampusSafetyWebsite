@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>校園安全文章</title>
+<link rel="preload" href="style.css" as="style">
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">跳至主要內容</a>
+<header>
+  <div class="top-bar">
+    <div class="logo">學生輔導中心</div>
+    <button id="lang-switch">EN</button>
+  </div>
+  <nav>
+    <ul class="menu">
+      <li><a href="#">關於我們</a></li>
+      <li><a href="#">最新消息</a></li>
+      <li><a href="#">主題專文</a></li>
+      <li><a href="#">業務項目</a></li>
+      <li><a href="#">文件規章</a></li>
+      <li><a href="#">北一區輔諮中心</a></li>
+      <li><a href="#">資源連結</a></li>
+    </ul>
+</nav>
+</header>
+<section class="hero">
+  <h1>自我探索與覺察</h1>
+</section>
+<main id="main">
+  <div id="article-list" class="view"></div>
+  <div id="article-view" class="view" style="display:none;">
+    <button id="back-home">回到首頁</button>
+    <div id="breadcrumb" class="breadcrumb"></div>
+    <div id="article-container">
+      <aside id="toc"></aside>
+      <article id="content"></article>
+    </div>
+  </div>
+</main>
+<footer>
+  <div class="footer-content">
+    國立臺灣師範大學 地址、電話、傳真
+  </div>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>
