@@ -29,16 +29,15 @@ a:hover {
 .skip-link:focus {
   left: 10px;
   top: 10px;
-  background: var(--secondary);
+  background: #2c6fbb;
   color: #fff;
   padding: 0.5rem;
   z-index: 1000;
 }
 
 header {
-  background: var(--primary);
+  background: #2c6fbb;
   color: #fff;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 .top-bar {
   display: flex;
@@ -59,7 +58,7 @@ header {
   color: #fff;
 }
 .menu li a:hover {
-  background: var(--secondary);
+  background: #174e91;
 }
 #lang-switch {
   background: none;
@@ -69,31 +68,23 @@ header {
   cursor: pointer;
   border-radius: 3px;
 }
-#lang-switch:hover {
-  background: var(--secondary);
-}
 
 .view {
   padding: 1rem;
 }
 
 #article-list {
-  max-width: 1140px;
-  margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 1rem;
 }
 .article-card {
   background: #fff;
-  border-radius: 6px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-  overflow: hidden;
-  transition: transform 0.2s, box-shadow 0.2s;
+  border: 1px solid #ddd;
+  transition: transform 0.2s;
 }
 .article-card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 .article-card .cover {
   width: 100%;
@@ -101,9 +92,8 @@ header {
   background: #ccc center/cover no-repeat;
 }
 .article-card h2 {
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   margin: 0.5rem;
-  color: var(--primary);
 }
 .article-card .date {
   font-size: 0.875rem;
@@ -112,7 +102,6 @@ header {
 }
 .article-card p {
   margin: 0 0.5rem 1rem;
-  line-height: 1.6;
 }
 
 #article-container {
@@ -146,7 +135,7 @@ header {
   margin-bottom: 0.5rem;
 }
 footer {
-  background: var(--primary);
+  background: #2c6fbb;
   color: #fff;
   text-align: center;
   padding: 1rem;
@@ -156,7 +145,6 @@ footer {
   #article-container {
     flex-direction: column;
   }
-
   #toc {
     width: 100%;
     margin-right: 0;
