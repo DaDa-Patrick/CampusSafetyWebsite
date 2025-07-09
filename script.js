@@ -7,8 +7,6 @@ const articles = [
   },
   // TODO: 加入更多文章設定
 ];
-
-
 const listEl = document.getElementById('article-list');
 const viewEl = document.getElementById('article-view');
 const contentEl = document.getElementById('content');
