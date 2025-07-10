@@ -10,6 +10,13 @@ function parseFrontMatter(text) {
   });
   return { meta, content: match[2] };
 }
+// 將 Markdown 轉為純文字，供摘要使用
+function markdownToPlain(md) {
+  const html = marked.parse(md);
+  const tmp = document.createElement('div');
+  tmp.innerHTML = html;
+  return (tmp.textContent || tmp.innerText || '').trim();
+}
 
 const listEl = document.getElementById('article-list');
 const viewEl = document.getElementById('article-view');
@@ -34,7 +41,7 @@ function loadList() {
 }
 
 function buildToc() {
-  tocEl.innerHTML = '<h3>目錄</h3>';
+  tocEl.innerHTML = '<div class="toc-breadcrumb">' + breadcrumbEl.textContent + '</div><h3>目錄</h3>';
   const headers = contentEl.querySelectorAll('h2');
   headers.forEach(h2 => {
     const anchor = h2.textContent.trim().replace(/\s+/g, '-');
@@ -53,14 +60,15 @@ function loadArticles() {
   fetch('articles/index.json')
     .then(r => r.json())
     .then(ids => Promise.all(ids.map(id =>
-      fetch(`articles/${id}.md`).then(r => r.text()).then(text => {
+      fetch(`articles/${id}.md?t=${Date.now()}`).then(r => r.text()).then(text => {
         const { meta, content } = parseFrontMatter(text);
+        const plain = markdownToPlain(content);
         return {
           id,
           title: meta.title || '',
           date: meta.date || '',
           category: meta.category || '',
-          summary: content.replace(/\n/g, '').slice(0, 120)
+          summary: plain.slice(0, 120)
         };
       })
     )))
@@ -72,7 +80,7 @@ function loadArticles() {
 }
 
 function showArticle(id) {
-  fetch(`articles/${id}.md`)
+  fetch(`articles/${id}.md?t=${Date.now()}`)
     .then(r => r.text())
     .then(md => {
       const { meta, content } = parseFrontMatter(md);

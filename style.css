@@ -4,6 +4,11 @@
   --bg-light: #f0f7ff;
 }
 
+/* 全域使用 border-box，避免元素寬度計算溢出 */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 body {
   font-family: 'Noto Sans TC', 'PingFang TC', 'Helvetica Neue', sans-serif;
   margin: 0;
@@ -35,16 +40,23 @@ a:hover {
   z-index: 1000;
 }
 
+.header {
+}
 header {
   background: var(--primary);
   color: #fff;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
 }
 .top-bar {
+  position: relative; /* ensure logo and lang switch remain in flow */
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.5rem 1rem;
+  padding: 1rem 1rem;
 }
 .menu {
   display: flex;
@@ -74,7 +86,8 @@ header {
 }
 
 .view {
-  padding: 1rem;
+  /* add top space so content isn’t hidden under the fixed header */
+  padding: 5rem 1rem 1rem 1rem;
 }
 
 #article-list {
@@ -119,10 +132,28 @@ header {
   max-width: 1140px;
   margin: 0 auto;
   display: flex;
+  align-items: flex-start;
 }
 #toc {
+  position: fixed;                                  /* 固定在視窗 */
+  top: 10rem;                                      /* 避開 header 高度 */
+  left: calc((100% - 1140px) / 2 - 50px);         /* 向左移動 220px，與主內容區距離拉開 */
   width: 200px;
+  max-height: calc(100vh - 5rem);
+  overflow-y: auto;
   margin-right: 1rem;
+  z-index: 999;                                     /* 確保在內容之上 */
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 1rem;
+  border-radius: 4px;
+}
+
+/* 調整文章內容區，避免被固定側欄遮擋 */
+@media (min-width: 769px) {
+  #content {
+    margin-left: calc(200px + 1rem + (100% - 1140px) / 2);
+  }
 }
 #toc h3 {
   margin-top: 0;
@@ -142,6 +173,7 @@ header {
   cursor: pointer;
 }
 .breadcrumb {
+  display: none;
   font-size: 0.875rem;
   margin-bottom: 0.5rem;
 }
@@ -150,6 +182,11 @@ footer {
   color: #fff;
   text-align: center;
   padding: 1rem;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
 }
 
 @media (max-width: 768px) {
@@ -164,12 +201,166 @@ footer {
   #article-list {
     grid-template-columns: 1fr;
   }
+  #toc {
+    position: static;
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+  #content {
+    margin-left: 0;
+  }
 }
 
 h2, h3, h4, h5, h6 {
   color: var(--primary);
+  scroll-margin-top: 8rem;
 }
 
 button:focus {
   outline: none;
+}
+
+/* 讓文章內容與卡片摘要在不同螢幕寬度下自動換行，並強制中英文單字內斷行 */
+#content,
+.article-card p {
+  word-wrap: break-word;       /* 舊版瀏覽器兼容 */
+  overflow-wrap: break-word;   /* 標準寫法 */
+  word-break: break-all;       /* 強制斷字，防止長詞溢出 */
+  line-break: strict;          /* CJK 嚴格換行規則 */
+  white-space: normal;
+}
+
+/* 處理程式碼區塊與行內程式碼自動換行 */
+pre, code {
+  white-space: pre-wrap;      /* 換行並保留原有排版 */
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* 表格自動換行並鎖定寬度，避免溢出 */
+table {
+  width: 100%;
+  table-layout: fixed;
+  word-break: break-all;
+}
+
+
+/* 避免內容容器整體水平溢出 */
+#article-container, #content {
+  overflow-x: hidden;
+}
+
+/* 圖片自動縮放，避免溢出容器 */
+#content img,
+#content p > img,
+.article-card img {
+  max-width: 100% !important;   /* never exceed container width */
+  width: auto !important;       /* override any fixed width attributes */
+  height: auto !important;      /* maintain aspect ratio */
+  display: block;
+  margin: 1rem auto;            /* center the image */
+  object-fit: contain;          /* ensure image fits when scaled down */
+}
+
+
+/* Prevent images from overflowing their container */
+#content p {
+  overflow-wrap: break-word;
+  word-break: break-word;
+  overflow-x: hidden;
+}
+
+
+
+/* Force markdown images to scale and center in #content */
+#content img {
+  max-width: 100% !important;
+  height: auto !important;
+  display: block !important;
+  margin: 1rem auto !important;
+}
+
+/* Flex 子項目允許縮小，防止圖片撐破容器 */
+#article-container,
+.article-card,
+#content {
+  min-width: 0;
+}
+
+/* 防止段落因圖片或長文字撐破 */
+#content p {
+  min-width: 0;
+  overflow-x: hidden;
+}
+
+/* 圖片縮放處理：依容器寬度縮小，不會超界 */
+#content img,
+.article-card img {
+  max-width: 100% !important;
+  height: auto !important;
+  display: block;
+  margin: 1rem auto;
+  object-fit: contain;
+}
+
+/* Prevent images and content from overflowing their containers */
+#article-container,
+#content {
+  min-width: 0;
+  overflow-x: hidden;
+}
+
+/* Ensure article images scale down to fit */
+#article-container img,
+#content img,
+.article-card .cover {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #fff;
+  text-decoration: none;
+}
+
+.logo:hover {
+  text-decoration: underline;
+}
+
+main {
+  padding-top: 4rem;    /* space for the fixed header */
+  padding-bottom: 4rem; /* space for the fixed footer */
+}
+
+/* Sidebar breadcrumb (page info) */
+#toc .toc-breadcrumb {
+  font-size: 0.875rem;
+  color: #666;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #eee;
+}
+
+/* Table of Contents title */
+#toc h3 {
+  margin: 1rem 0;
+  font-size: 1.25rem;
+  color: var(--primary);
+}
+
+/* Individual ToC links */
+#toc div {
+  margin-bottom: 0.5rem;
+}
+#toc a {
+  display: inline-block;
+  padding: 0.25rem 0;
+}
+
+/* Hide global breadcrumb if not needed */
+.breadcrumb {
+  display: none !important;
 }
