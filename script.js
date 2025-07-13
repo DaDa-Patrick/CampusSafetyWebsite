@@ -53,7 +53,7 @@ function loadList() {
     const card = document.createElement('div');
     card.className = 'article-card';
     card.innerHTML =
-      `<div class="cover"></div>` +
+      `<div class="cover" style="background-image: url('articles/images/cover/${meta.id}.jpeg');"></div>` +
       `<h2><a href="#/article/${meta.id}">${meta.title}</a></h2>` +
       `<div class="date">${meta.date}</div>` +
       `<p>${meta.summary}...</p>`;
