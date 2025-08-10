@@ -10,10 +10,15 @@
 </head>
 <body>
 <a class="skip-link" href="#main">跳至主要內容</a>
+<header class="site-header">
+  <div class="top-bar">
+    <a href="#" class="logo" id="site-title">校園安全守護站</a>
+  </div>
+</header>
 <main id="main">
+  <div id="scroll-progress" aria-hidden="true"></div>
   <section id="hero" class="hero view">
     <div class="hero__inner">
-      <h1 class="hero__title">校園安全守護站</h1>
       <p class="hero__subtitle">主題專文｜洞察校園安全的趨勢與實務，從政策到日常，給你一站式深度閱讀。</p>
       <div class="hero__chips">
         <span class="chip" data-tag="全部">全部</span>
@@ -22,24 +27,55 @@
         <span class="chip" data-tag="危機處理與防災">危機處理與防災</span>
         <span class="chip" data-tag="學生輔導與支持">學生輔導與支持</span>
         <span class="chip" data-tag="制度與政策">制度與政策</span>
+        <button id="sort-toggle" class="sort-btn js-sort-toggle" aria-label="切換日期排序" title="切換日期排序">日期：新→舊</button>
       </div>
     </div>
+    <div class="divider divider--wave" aria-hidden="true">
+      <svg viewBox="0 0 1200 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,0 V40 C150,80 350,0 600,30 850,60 1050,20 1200,40 V0 Z" fill="currentColor" opacity="0.06"></path>
+      </svg>
+    </div>
   </section>
+  <div id="filter-bar" class="filter-bar">
+    <div class="chips-row">
+      <span class="chip" data-tag="全部">全部</span>
+      <span class="chip" data-tag="法律與規範">法律與規範</span>
+      <span class="chip" data-tag="校園安全案例">校園安全案例</span>
+      <span class="chip" data-tag="危機處理與防災">危機處理與防災</span>
+      <span class="chip" data-tag="學生輔導與支持">學生輔導與支持</span>
+      <span class="chip" data-tag="制度與政策">制度與政策</span>
+      <button id="sort-toggle-2" class="sort-btn js-sort-toggle" aria-label="切換日期排序" title="切換日期排序">日期：新→舊</button>
+    </div>
+  </div>
   <section class="section section-list view">
     <div class="surface surface--panel">
       <div id="article-list" class="article-list-grid"></div>
     </div>
   </section>
-  <div id="article-view" class="view" style="display:none;">
+    <div id="article-view" class="view" style="display:none;">
     <button id="back-home">回到首頁</button>
     <div id="breadcrumb" class="breadcrumb"></div>
+    <div id="article-head" class="article-head" aria-live="polite"></div>
     <div id="article-container">
       <aside id="toc"></aside>
       <article id="content"></article>
     </div>
   </div>
+  <button id="back-top" class="back-top" aria-label="回到頁面頂端" title="回到頁面頂端">回到頂端</button>
 </main>
-<button id="theme-toggle-fab" class="fab" aria-label="切換深淺色" title="切換深淺色">🌓</button>
+<button id="theme-toggle-fab" class="fab" aria-label="切換深淺色" title="切換深淺色">
+  <span class="icon-sun" aria-hidden="true">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+      <path d="M6.76 4.84l-1.8-1.79L4 4l1.79 1.79 0.97-0.95zM1 13h3v-2H1v2zm10 10h2v-3h-2v3zM4 20l0.95 0.95L6.76 19.1l-0.95-0.95L4 20zM20 4l-0.95-0.95L17.24 5.9l0.95 0.95L20 4zM20 11v2h3v-2h-3zm-8-7h2V1h-2v3zm7.24 14.15l1.71 1.71L20 20l-1.79-1.79 1.03-1.06zM12 6a6 6 0 100 12 6 6 0 000-12z"/>
+    </svg>
+  </span>
+  <span class="icon-moon" aria-hidden="true">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12.004 2c-.34 0-.676.02-1.008.06a9.99 9.99 0 009.944 12.12A10 10 0 1112.004 2z"/>
+    </svg>
+  </span>
+  <span class="visually-hidden">切換深淺色</span>
+</button>
 <script src="script.js"></script>
 </body>
 </html>
