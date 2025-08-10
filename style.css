@@ -953,6 +953,8 @@ table {
 main {
   padding-top: calc(var(--safe-top, 0px) + 0.5rem);
   padding-bottom: 2rem;
+  position: relative;
+  z-index: 400; /* ensure content sits above switching overlays */
 }
 
 /* Sidebar breadcrumb (page info) */
@@ -1047,7 +1049,7 @@ body.theme-switching.sunset::before {
   top: var(--safe-top, 0);
   left: 0; right: 0; bottom: 0;
   pointer-events: none;
-  z-index: 1500; /* above content, below FAB */
+  z-index: 200; /* below content */
   opacity: 1;
 }
 /* Sky gradients */
@@ -1060,6 +1062,7 @@ body.theme-switching.sunrise::before {
     #cfeaff 100%       /* day sky */
   );
   animation: sky-sunrise 1.2s linear forwards;
+  opacity: .85;
 }
 body.theme-switching.sunset::before {
   background: linear-gradient(180deg,
@@ -1070,29 +1073,40 @@ body.theme-switching.sunset::before {
     #15223a 100%       /* night */
   );
   animation: sky-sunset 1.2s linear forwards;
+  opacity: .85;
 }
 
-/* Sun disc & glow */
 body.theme-switching.sunrise::after,
 body.theme-switching.sunset::after {
   content: "";
   position: fixed;
   top: var(--safe-top, 0);
-  left: 0; right: 0; bottom: 0;
+  left: 0; right: auto; bottom: 0;
   pointer-events: none;
-  z-index: 1501;
-  width: 220px; height: 220px;
-  margin: 0 auto; /* center horizontally */
+  z-index: 300; /* under #main */
+  width: 160px; height: 160px;
   border-radius: 50%;
   background:
-    radial-gradient(circle at 50% 50%, #FFD54F 0%, #FFE082 35%, rgba(255,213,79,0.0) 60%);
-  filter: blur(0.4px) saturate(110%);
-  box-shadow: 0 0 60px 20px rgba(255,213,79,0.35), 0 0 120px 60px rgba(255,213,79,0.18);
+    radial-gradient(circle at 50% 50%, rgba(255,223,128,0.95) 0%, rgba(255,210,90,0.85) 28%, rgba(255,180,60,0.0) 60%),
+    radial-gradient(circle at 50% 50%, rgba(255,200,80,0.20) 0%, rgba(255,200,80,0.0) 72%);
+  mix-blend-mode: screen;
+  filter: saturate(112%);
+  opacity: .85;
 }
-/* Move sun up for sunrise */
-body.theme-switching.sunrise::after { transform: translateY(55vh) scale(.92); animation: sun-up .9s cubic-bezier(.16,1,.3,1) .15s forwards; }
-/* Move sun down for sunset */
-body.theme-switching.sunset::after { transform: translateY(10vh) scale(1.02); animation: sun-down .9s cubic-bezier(.16,1,.3,1) .15s forwards; }
+/* Sunrise: sun rises near top-left */
+body.theme-switching.sunrise::after {
+  left: 8%;
+  top: calc(var(--safe-top, 0) + 8%);
+  transform: translateY(10vh) scale(.94);
+  animation: sun-up .9s cubic-bezier(.16,1,.3,1) .15s forwards;
+}
+/* Sunset: sun sets near top-right */
+body.theme-switching.sunset::after {
+  left: auto; right: 8%;
+  top: calc(var(--safe-top, 0) + 6%);
+  transform: translateY(-4vh) scale(1.02);
+  animation: sun-down .9s cubic-bezier(.16,1,.3,1) .15s forwards;
+}
 
 @keyframes sky-sunrise {
   0%   { opacity: 1; }
@@ -1103,14 +1117,14 @@ body.theme-switching.sunset::after { transform: translateY(10vh) scale(1.02); an
   100% { opacity: 0; }
 }
 @keyframes sun-up {
-  0%   { transform: translateY(55vh) scale(.92); opacity: .95; }
-  70%  { transform: translateY(8vh)  scale(1.04); opacity: 1; }
-  100% { transform: translateY(0vh)  scale(1.00); opacity: 0; }
+  0%   { transform: translateY(10vh) scale(.94); opacity: .9; }
+  70%  { transform: translateY(0vh)  scale(1.03); opacity: .8; }
+  100% { transform: translateY(-2vh) scale(1.00); opacity: 0; }
 }
 @keyframes sun-down {
-  0%   { transform: translateY(10vh) scale(1.02); opacity: .95; }
-  70%  { transform: translateY(55vh) scale(.96);  opacity: 1; }
-  100% { transform: translateY(70vh) scale(.92);  opacity: 0; }
+  0%   { transform: translateY(-4vh) scale(1.02); opacity: .9; }
+  70%  { transform: translateY(12vh) scale(.98);  opacity: .7; }
+  100% { transform: translateY(22vh) scale(.94);  opacity: 0; }
 }
 
 @media (prefers-reduced-motion: reduce){
