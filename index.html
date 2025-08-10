@@ -10,22 +10,26 @@
 </head>
 <body>
 <a class="skip-link" href="#main">跳至主要內容</a>
-<header>
-  <div class="top-bar">
-    <a href="#" class="logo">校園安全守護站</a>
-  </div>
-  <nav>
-    <ul class="menu">
-      <li><a href="#/page/about">關於我們</a></li>
-      <li><a href="#">主題專文</a></li>
-      <li><a href="#/page/services">業務項目</a></li>
-      <li><a href="#/page/docs">文件規章</a></li>
-      <li><a href="#/page/links">資源連結</a></li>
-    </ul>
-</nav>
-</header>
 <main id="main">
-  <div id="article-list" class="view"></div>
+  <section id="hero" class="hero view">
+    <div class="hero__inner">
+      <h1 class="hero__title">校園安全守護站</h1>
+      <p class="hero__subtitle">主題專文｜洞察校園安全的趨勢與實務，從政策到日常，給你一站式深度閱讀。</p>
+      <div class="hero__chips">
+        <span class="chip" data-tag="全部">全部</span>
+        <span class="chip" data-tag="法律與規範">法律與規範</span>
+        <span class="chip" data-tag="校園安全案例">校園安全案例</span>
+        <span class="chip" data-tag="危機處理與防災">危機處理與防災</span>
+        <span class="chip" data-tag="學生輔導與支持">學生輔導與支持</span>
+        <span class="chip" data-tag="制度與政策">制度與政策</span>
+      </div>
+    </div>
+  </section>
+  <section class="section section-list view">
+    <div class="surface surface--panel">
+      <div id="article-list" class="article-list-grid"></div>
+    </div>
+  </section>
   <div id="article-view" class="view" style="display:none;">
     <button id="back-home">回到首頁</button>
     <div id="breadcrumb" class="breadcrumb"></div>
@@ -34,16 +38,8 @@
       <article id="content"></article>
     </div>
   </div>
-  <div id="page-view" class="view" style="display:none;">
-    <button id="back-home-page">回到首頁</button>
-    <article id="page-content"></article>
-  </div>
 </main>
-<footer>
-  <div class="footer-content">
-    國立臺灣師範大學 地址、電話、傳真
-  </div>
-</footer>
+<button id="theme-toggle-fab" class="fab" aria-label="切換深淺色" title="切換深淺色">🌓</button>
 <script src="script.js"></script>
 </body>
 </html>
