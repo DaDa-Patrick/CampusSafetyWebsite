@@ -800,6 +800,7 @@ body.theme-dark .empty-state .chip--ghost { border-color: rgba(255,255,255,0.22)
   cursor: pointer;
   box-shadow: 0 10px 24px rgba(122,7,20,0.30);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  z-index: 1000;
 }
 #back-home:hover { transform: translateY(-2px); box-shadow: 0 16px 36px rgba(122,7,20,0.40); }
 .breadcrumb {
@@ -1005,30 +1006,31 @@ body.theme-dark #toc {
 
 /* Article enter animations */
 .anim-enter{opacity:0;transform:translateY(10px) scale(.98);filter:saturate(.98);will-change:opacity,transform,filter;}
-.anim-enter.is-in{opacity:1;transform:none;filter:none;transition:opacity .5s ease, transform .6s cubic-bezier(.16,1,.3,1), filter .6s ease;transition-delay:var(--delay,0ms);}
+.anim-enter.is-in{opacity:1;transform:none;filter:none;transition:opacity .7s ease, transform .9s cubic-bezier(.16,1,.3,1), filter .9s ease;transition-delay:var(--delay,0ms);}
 
 .anim-enter-left{opacity:0;transform:translateX(-12px);will-change:opacity,transform;}
-.anim-enter-left.is-in{opacity:1;transform:none;transition:opacity .5s ease, transform .6s cubic-bezier(.16,1,.3,1);transition-delay:var(--delay,0ms);}
+.anim-enter-left.is-in{opacity:1;transform:none;transition:opacity .7s ease, transform .9s cubic-bezier(.16,1,.3,1);transition-delay:var(--delay,0ms);}
 
 .anim-hero{opacity:0;transform:translateY(-8px) scale(1.02);}
-.anim-hero.is-in{opacity:1;transform:none;transition:opacity .6s ease, transform .8s cubic-bezier(.16,1,.3,1);transition-delay:var(--delay,0ms);}
+.anim-hero.is-in{opacity:1;transform:none;transition:opacity .8s ease, transform 1s cubic-bezier(.16,1,.3,1);transition-delay:var(--delay,0ms);}
 
 .anim-pop{opacity:0;transform:translateY(8px) scale(.96);}
-.anim-pop.is-in{opacity:1;transform:none;transition:opacity .5s ease, transform .5s cubic-bezier(.2,.8,.2,1);transition-delay:var(--delay,0ms);}
+.anim-pop.is-in{opacity:1;transform:none;transition:opacity .7s ease, transform .7s cubic-bezier(.2,.8,.2,1);transition-delay:var(--delay,0ms);}
 
 @media (prefers-reduced-motion: reduce){
   .anim-enter,.anim-enter-left,.anim-hero,.anim-pop{opacity:1 !important;transform:none !important;transition:none !important;}
 }
 
 /* Smooth theme switch transitions */
+/* Do not override page-enter animations */
 body.theme-ease .surface--panel,
 body.theme-ease .article-card,
 body.theme-ease .chip,
-body.theme-ease #toc,
+body.theme-ease #toc:not(.anim-enter-left),
 body.theme-ease #content,
 body.theme-ease .hero,
 body.theme-ease .filter-bar,
-body.theme-ease .article-head,
+body.theme-ease .article-head:not(.anim-hero),
 body.theme-ease .back-top,
 body.theme-ease .fab {
   transition: background-color .35s ease, color .35s ease,
@@ -1038,7 +1040,7 @@ body.theme-ease .fab {
 }
 /* Subtle whole-page zoom animation on theme switch */
 body.theme-switching #main {
-  animation: theme-zoom .65s cubic-bezier(.16,1,.3,1) both;
+  animation: theme-zoom 1s cubic-bezier(.16,1,.3,1) both;
 }
 
 /* Sunrise / Sunset overlays on theme switch (start below the fixed header) */
@@ -1061,7 +1063,7 @@ body.theme-switching.sunrise::before {
     #ffe0a3 70%,
     #cfeaff 100%       /* day sky */
   );
-  animation: sky-sunrise 1.2s linear forwards;
+  animation: sky-sunrise 1.6s linear forwards;
   opacity: .85;
 }
 body.theme-switching.sunset::before {
@@ -1072,7 +1074,7 @@ body.theme-switching.sunset::before {
     #f2994a 72%,
     #15223a 100%       /* night */
   );
-  animation: sky-sunset 1.2s linear forwards;
+  animation: sky-sunset 1.6s linear forwards;
   opacity: .85;
 }
 
@@ -1098,14 +1100,14 @@ body.theme-switching.sunrise::after {
   left: 8%;
   top: calc(var(--safe-top, 0) + 8%);
   transform: translateY(10vh) scale(.94);
-  animation: sun-up .9s cubic-bezier(.16,1,.3,1) .15s forwards;
+  animation: sun-up 1.3s cubic-bezier(.16,1,.3,1) .15s forwards;
 }
 /* Sunset: sun sets near top-right */
 body.theme-switching.sunset::after {
   left: auto; right: 8%;
   top: calc(var(--safe-top, 0) + 6%);
   transform: translateY(-4vh) scale(1.02);
-  animation: sun-down .9s cubic-bezier(.16,1,.3,1) .15s forwards;
+  animation: sun-down 1.3s cubic-bezier(.16,1,.3,1) .15s forwards;
 }
 
 @keyframes sky-sunrise {
@@ -1146,6 +1148,12 @@ body.theme-switching.sunset::after {
   body.theme-ease .fab,
   body.theme-switching #main { transition: none !important; }
 }
+
+/* Ensure transform transitions are not overridden during page enter */
+.anim-enter.is-in,
+.anim-enter-left.is-in,
+.anim-hero.is-in,
+.anim-pop.is-in { transition: opacity .7s ease, transform .9s cubic-bezier(.16,1,.3,1), filter .9s ease !important; }
 
 /* sorter */
 .sort { margin-top: 0.5rem; }

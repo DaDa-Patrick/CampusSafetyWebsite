@@ -85,7 +85,7 @@ const breadcrumbEl = document.getElementById('breadcrumb');
         document.body.classList.remove('theme-switching');
         document.body.classList.remove('sunset');
         document.body.classList.remove('sunrise');
-      }, 1250);
+      }, 1800);
     });
   }
 })();
